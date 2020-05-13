@@ -24,6 +24,8 @@ namespace Calculator
 
             string buttonName = null;
             Button button = null;
+            Display.Text = "0";
+            Display.TabStop = false;
 
             for(int i = 0; i < 10; i++) 
             {
@@ -36,7 +38,57 @@ namespace Calculator
         private void Button_Click(object sender, EventArgs e)
         {
             Button button = (Button)sender;
-            Display.Text += button.Text;
+            if (Display.Text == "0") 
+            {
+                Display.Text = button.Text;
+            }
+            else 
+            {
+                Display.Text += button.Text;
+            }
+        }
+
+        private void buttonDecimal_Click(object sender, EventArgs e)
+        {
+            if (!Display.Text.Contains(".")) 
+            {
+                if (Display.Text == string.Empty)
+                {
+                    Display.Text += "0.";
+                }
+                else
+                {
+                    Display.Text += ".";
+                }
+            }
+        }
+
+        private void buttonBackspace_Click(object sender, EventArgs e)
+        {
+            string s = Display.Text;
+            if (s.Length > 1)
+            {
+                s = s.Substring(0, s.Length - 1);
+            }
+            else
+            {
+                s = "0";
+            }
+            Display.Text = s;
+        }
+
+        private void buttonSign_Click(object sender, EventArgs e)
+        {
+            try 
+            {
+                double number = Convert.ToDouble(Display.Text);
+                number *= -1;
+                Display.Text = Convert.ToString(number);
+            }
+            catch 
+            {
+                
+            }
         }
     }
 }
